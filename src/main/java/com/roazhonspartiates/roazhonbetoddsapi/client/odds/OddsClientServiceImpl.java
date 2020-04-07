@@ -1,4 +1,4 @@
-package com.roazhonspartiates.roazhonbetoddsapi.odds;
+package com.roazhonspartiates.roazhonbetoddsapi.client.odds;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -7,12 +7,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class OddsServiceImpl implements OddsService  {
+public class OddsClientServiceImpl implements OddsClientService {
 
     private static String URL = "https://api.the-odds-api.com";
     private static String API_KEY = "b4007c4a2bff4aa6e7bccec5c40813cf";
 
-    public OddsServiceImpl() {
+    public OddsClientServiceImpl() {
     }
 
     // one instance, reuse
@@ -21,7 +21,7 @@ public class OddsServiceImpl implements OddsService  {
             .build();
 
     @Override
-    public void getOdds() throws Exception {
+    public OddsClient getOdds() throws Exception {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -33,13 +33,15 @@ public class OddsServiceImpl implements OddsService  {
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         ObjectMapper mapper = new ObjectMapper();
-        Odds odds = mapper.readValue(response.body(), Odds.class);
+        OddsClient odds = mapper.readValue(response.body(), OddsClient.class);
 
         // print status code
         System.out.println(response.statusCode());
 
         // print response body
         System.out.println(response.body());
+
+        return odds;
     }
 
 }

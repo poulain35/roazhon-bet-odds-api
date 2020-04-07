@@ -1,13 +1,13 @@
-package com.roazhonspartiates.roazhonbetoddsapi.odds;
+package com.roazhonspartiates.roazhonbetoddsapi.client.odds;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Odds {
+public class OddsClient {
     Boolean success;
-    List<OddsData> data;
+    List<OddsClientData> data;
 
     public Boolean getSuccess() {
         return success;
@@ -17,11 +17,11 @@ public class Odds {
         this.success = success;
     }
 
-    public List<OddsData> getData() {
+    public List<OddsClientData> getData() {
         return data;
     }
 
-    public void setData(List<OddsData> data) {
+    public void setData(List<OddsClientData> data) {
         this.data = data;
     }
 }

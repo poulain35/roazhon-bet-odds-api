@@ -1,13 +1,13 @@
-package com.roazhonspartiates.roazhonbetoddsapi.odds;
+package com.roazhonspartiates.roazhonbetoddsapi.client.odds;
 
 import java.util.Date;
 
-public class OddsSites {
+public class OddsClientSites {
 
     String site_key;
     String site_nice;
     Date last_update;
-    OddsScore odds;
+    OddsClientScore odds;
 
     public String getSite_key() {
         return site_key;
@@ -33,11 +33,11 @@ public class OddsSites {
         this.last_update = last_update;
     }
 
-    public OddsScore getOdds() {
+    public OddsClientScore getOdds() {
         return odds;
     }
 
-    public void setOdds(OddsScore odds) {
+    public void setOdds(OddsClientScore odds) {
         this.odds = odds;
     }
 }

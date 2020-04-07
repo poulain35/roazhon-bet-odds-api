@@ -1,4 +1,4 @@
-package com.roazhonspartiates.roazhonbetoddsapi.odds;
+package com.roazhonspartiates.roazhonbetoddsapi.client.odds;
 
 import java.util.Date;
 import java.util.List;
@@ -6,13 +6,13 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OddsData {
+public class OddsClientData {
     String sport_key;
     String sport_nice;
     List<String> teams;
     Date commence_time;
     String home_team;
-    List<OddsSites> sites;
+    List<OddsClientSites> sites;
     Integer sites_count;
 
     public String getSport_key() {
@@ -55,11 +55,11 @@ public class OddsData {
         this.home_team = home_team;
     }
 
-    public List<OddsSites> getSites() {
+    public List<OddsClientSites> getSites() {
         return sites;
     }
 
-    public void setSites(List<OddsSites> sites) {
+    public void setSites(List<OddsClientSites> sites) {
         this.sites = sites;
     }
 

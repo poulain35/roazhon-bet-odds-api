@@ -1,7 +1,11 @@
 package com.roazhonspartiates.roazhonbetoddsapi;
 
-import com.roazhonspartiates.roazhonbetoddsapi.odds.OddsService;
-import com.roazhonspartiates.roazhonbetoddsapi.odds.OddsServiceImpl;
+import com.roazhonspartiates.roazhonbetoddsapi.client.odds.OddsClient;
+import com.roazhonspartiates.roazhonbetoddsapi.client.odds.OddsClientService;
+import com.roazhonspartiates.roazhonbetoddsapi.client.odds.OddsClientServiceImpl;
+import com.roazhonspartiates.roazhonbetoddsapi.helper.OddsDTOHelper;
+import com.roazhonspartiates.roazhonbetoddsapi.model.Odds;
+import com.roazhonspartiates.roazhonbetoddsapi.service.OddsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -9,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 @Component
 public class ScheduledTasks {
@@ -21,9 +25,19 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 2000)
     public void scheduleTaskWithFixedRate() throws Exception {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
-        OddsService oddsService = new OddsServiceImpl();
 
-        oddsService.getOdds();
+        logger.info("Récupération des odds API");
+        OddsClientService oddsClientService = new OddsClientServiceImpl();
+        OddsClient oddsClient = oddsClientService.getOdds();
+
+        logger.info("Formattage des odds");
+        OddsDTOHelper oddsHelper = new OddsDTOHelper();
+        List<Odds> oddsList = oddsHelper.toDTO(oddsClient.getData());
+
+        logger.info("Insertion en base des odds");
+        oddsService.putOdds(oddsList);
+
+        logger.info("Fin du traitement des odds");
     }
 
     /*
